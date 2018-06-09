@@ -12,7 +12,7 @@ import fr.ec.producthunt.ui.detail.DetailPostFragment;
 
 public class MainActivity extends AppCompatActivity implements PostsFragments.Callback {
 
-  private boolean towPane;
+  private boolean twoPane;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements PostsFragments.Ca
     FrameLayout detailContainer = findViewById(R.id.home_detail_container);
 
     if (detailContainer != null) {
-      towPane = true;
+      twoPane = true;
       getSupportFragmentManager().beginTransaction()
           .add(R.id.home_detail_container, DetailPostFragment.getNewInstance(null))
           .commit();
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements PostsFragments.Ca
 
   @Override public void onClickPost(Post post) {
 
-    if (towPane) {
+    if (twoPane) {
       DetailPostFragment detailPostFragment =
           (DetailPostFragment) getSupportFragmentManager().findFragmentById(R.id.home_detail_container);
 

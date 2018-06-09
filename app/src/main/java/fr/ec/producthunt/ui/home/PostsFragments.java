@@ -128,8 +128,8 @@ public class PostsFragments extends Fragment {
   }
 
   private void loadPosts() {
-    FetchPostsAsyncTask fetchPstsAsyncTask = new FetchPostsAsyncTask();
-    fetchPstsAsyncTask.execute();
+    FetchPostsAsyncTask fetchPostsAsyncTask = new FetchPostsAsyncTask();
+    fetchPostsAsyncTask.execute();
   }
 
   private class FetchPostsAsyncTask extends AsyncTask<Void, Void, List<Post>> {
