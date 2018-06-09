@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">ProductHunt</string>
+  <string name="menu_refresh_title">Actualiser</string>
+  <string name="emplty_list_msg">Veuillez actualiser</string>
+</resources>

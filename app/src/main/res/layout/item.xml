@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="horizontal"
+
+    >
+  <ImageView
+      android:id="@+id/img_product"
+      android:layout_width="64dp"
+      android:layout_height="64dp"
+      android:background="@android:color/darker_gray"
+
+      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="64dp"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
+      android:orientation="vertical"
+      >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:padding="2dp"
+        android:textAppearance="?android:textAppearanceListItem"
+        tools:text="Gear 360"
+        />
+
+    <TextView
+        android:id="@+id/sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:textAppearance="?android:textAppearanceListItemSecondary"
+        tools:text="Capture stunning 360 video for virtual reality, by Samsung"
+        />
+
+  </LinearLayout>
+</LinearLayout>
