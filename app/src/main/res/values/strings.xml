@@ -1,5 +1,9 @@
 <resources>
   <string name="app_name">ProductHunt</string>
   <string name="menu_refresh_title">Actualiser</string>
-  <string name="emplty_list_msg">Veuillez actualiser</string>
+  <string name="empty_list_msg">Veuillez actualiser</string>
+  <string name="posts">Posts</string>
+  <string name="collections">Collections</string>
+    <string name="drawer_open">Open</string>
+  <string name="drawer_close">Close</string>
 </resources>

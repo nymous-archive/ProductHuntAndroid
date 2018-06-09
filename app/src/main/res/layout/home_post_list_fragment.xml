@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/emplty_list_msg"
+        android:text="@string/empty_list_msg"
 
         />
 
