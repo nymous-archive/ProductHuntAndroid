@@ -8,6 +8,8 @@ public class Post {
   private String subTitle;
   private String imageUrl;
   private String postUrl;
+  private long postDate;
+
   private long id;
 
   public String getTitle() {
@@ -50,6 +52,15 @@ public class Post {
     return id;
   }
 
+  public long getPostDate() {
+    return postDate;
+  }
+
+  public void setPostDate(long postDate) {
+    this.postDate = postDate;
+  }
+
+
   public ContentValues toContentValues() {
 
     ContentValues contentValues = new ContentValues();
@@ -58,6 +69,7 @@ public class Post {
     contentValues.put(DataBaseContract.PostTable.SUBTITLE_COLUMN, subTitle);
     contentValues.put(DataBaseContract.PostTable.IMAGE_URL_COLUMN, imageUrl);
     contentValues.put(DataBaseContract.PostTable.POST_URL_COLUMN, postUrl);
+    contentValues.put(DataBaseContract.PostTable.POST_DATE_COLUMN, postDate);
     return contentValues;
   }
 

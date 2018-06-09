@@ -30,7 +30,6 @@ public class ProductHuntDbHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    onUpgrade(db, oldVersion, newVersion);
     db.execSQL(DataBaseContract.PostTable.SQL_DROP_POST_TABLE);
     onCreate(db);
   }

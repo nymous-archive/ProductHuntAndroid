@@ -6,11 +6,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import fr.ec.producthunt.R;
 import fr.ec.producthunt.data.model.Post;
-import java.util.Collections;
-import java.util.List;
 
 public class PostAdapter extends BaseAdapter {
 
@@ -42,6 +47,7 @@ public class PostAdapter extends BaseAdapter {
       viewHolder.title = convertView.findViewById(R.id.title);
       viewHolder.subTitle = convertView.findViewById(R.id.sub_title);
       viewHolder.postImage = convertView.findViewById(R.id.img_product);
+      viewHolder.postDate = convertView.findViewById(R.id.post_date);
 
       convertView.setTag(viewHolder);
     } else {
@@ -52,6 +58,8 @@ public class PostAdapter extends BaseAdapter {
     Post post = dataSource.get(position);
     viewHolder.title.setText(post.getTitle());
     viewHolder.subTitle.setText(post.getSubTitle());
+    Date postDate = new Date(post.getPostDate());
+    viewHolder.postDate.setText(DateFormat.getDateTimeInstance().format(postDate));
 
 
     Picasso.with(parent.getContext())
@@ -73,5 +81,6 @@ public class PostAdapter extends BaseAdapter {
     TextView title;
     TextView subTitle;
     ImageView postImage;
+    TextView postDate;
   }
 }
