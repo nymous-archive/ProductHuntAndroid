@@ -82,5 +82,4 @@ public class Post {
     return contentValues;
   }
 
-
 }

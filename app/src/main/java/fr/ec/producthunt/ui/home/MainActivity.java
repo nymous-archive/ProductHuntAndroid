@@ -15,11 +15,13 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import fr.ec.producthunt.R;
+import fr.ec.producthunt.data.model.Collection;
 import fr.ec.producthunt.data.model.Post;
+import fr.ec.producthunt.ui.collections.CollectionsFragments;
 import fr.ec.producthunt.ui.detail.DetailActivity;
 import fr.ec.producthunt.ui.detail.DetailPostFragment;
 
-public class MainActivity extends AppCompatActivity implements PostsFragments.Callback {
+public class MainActivity extends AppCompatActivity implements PostsFragments.Callback, CollectionsFragments.Callback {
 
     private boolean twoPane;
     private DrawerLayout drawerLayout;
@@ -29,22 +31,35 @@ public class MainActivity extends AppCompatActivity implements PostsFragments.Ca
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new PostsFragments())
+                .commit();
+
         //***************************************
         //         D R A W E R   M E N U
         //***************************************
         drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_posts);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        item.setChecked(true);
-                        drawerLayout.closeDrawers();
+                item.setChecked(true);
+                drawerLayout.closeDrawers();
 
-                        switch (item.getItemId()) {
-                            case R.id.nav_posts:
-                                break; // TODO
-                        }
+                switch (item.getItemId()) {
+                    case R.id.nav_posts:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, new PostsFragments())
+                                .commit();
+                        break;
+                    case R.id.nav_collections:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, new CollectionsFragments())
+                                .commit();
+                        break;
+                }
 
                         return true;
                     }
@@ -99,5 +114,10 @@ public class MainActivity extends AppCompatActivity implements PostsFragments.Ca
 
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onClickCollection(Collection collection) {
+
     }
 }
