@@ -1,9 +1,10 @@
 <resources>
-  <string name="app_name">ProductHunt</string>
-  <string name="menu_refresh_title">Actualiser</string>
-  <string name="empty_list_msg">Veuillez actualiser</string>
-  <string name="posts">Posts</string>
-  <string name="collections">Collections</string>
+    <string name="app_name">ProductHunt</string>
+    <string name="menu_refresh_title">Refresh</string>
+    <string name="empty_list_msg">Please refresh</string>
+    <string name="posts">Posts</string>
+    <string name="collections">Collections</string>
     <string name="drawer_open">Open</string>
-  <string name="drawer_close">Close</string>
+    <string name="drawer_close">Close</string>
+    <string name="open_in_browser">Open in browser</string>
 </resources>
