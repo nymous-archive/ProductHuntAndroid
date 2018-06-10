@@ -32,7 +32,6 @@ public class DetailPostFragment extends Fragment {
         Fragment fragment = new DetailPostFragment();
         Bundle bundle = new Bundle();
         bundle.putString(URL_KEY, url);
-        ;
         fragment.setArguments(bundle);
 
         return fragment;

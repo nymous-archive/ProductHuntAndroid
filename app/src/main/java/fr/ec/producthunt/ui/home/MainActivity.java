@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements PostsFragments.Ca
 
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra(DetailActivity.POST_URL_KEY, post.getPostUrl());
+            intent.putExtra(DetailActivity.PRODUCT_NAME_KEY, post.getTitle());
 
             startActivity(intent);
         }

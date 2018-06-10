@@ -12,6 +12,7 @@ import fr.ec.producthunt.R;
 public class DetailActivity extends AppCompatActivity {
 
     public static final String POST_URL_KEY = "post_url_key";
+    public static final String PRODUCT_NAME_KEY = "product_name_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        setTitle(obtainProductNameFromIntent());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -37,6 +40,16 @@ public class DetailActivity extends AppCompatActivity {
             return intent.getExtras().getString(POST_URL_KEY);
         } else {
             throw new IllegalStateException("Il faut passer l'url du post");
+        }
+    }
+
+    private String obtainProductNameFromIntent() {
+
+        Intent intent = getIntent();
+        if (intent.getExtras().containsKey(PRODUCT_NAME_KEY)) {
+            return intent.getExtras().getString(PRODUCT_NAME_KEY);
+        } else {
+            throw new IllegalStateException("Il faut passer le titre du produit");
         }
     }
 }
