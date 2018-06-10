@@ -20,6 +20,9 @@ import fr.ec.producthunt.data.model.Post;
 
 public class PostAdapter extends BaseAdapter {
 
+    public static final int VIEW_BIG_ITEM = 0;
+    public static final int VIEW_NORMAL_ITEM = 1;
+
     private List<Post> dataSource = Collections.emptyList();
 
     public PostAdapter() {
@@ -45,20 +48,39 @@ public class PostAdapter extends BaseAdapter {
 
         ViewHolder viewHolder;
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        int viewType = getItemViewType(position);
+        if (viewType == VIEW_BIG_ITEM) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.big_item, parent, false);
 
-            viewHolder = new ViewHolder();
-            viewHolder.title = convertView.findViewById(R.id.title);
-            viewHolder.subTitle = convertView.findViewById(R.id.sub_title);
-            viewHolder.postImage = convertView.findViewById(R.id.img_product);
-            viewHolder.postDate = convertView.findViewById(R.id.post_date);
-            viewHolder.commentsCount = convertView.findViewById(R.id.comments_count);
+                viewHolder = new ViewHolder();
+                viewHolder.title = convertView.findViewById(R.id.title);
+                viewHolder.subTitle = convertView.findViewById(R.id.sub_title);
+                viewHolder.postImage = convertView.findViewById(R.id.img_product);
+                viewHolder.postDate = convertView.findViewById(R.id.post_date);
+                viewHolder.commentsCount = convertView.findViewById(R.id.comments_count);
 
-            convertView.setTag(viewHolder);
+                convertView.setTag(viewHolder);
+            } else {
+
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
         } else {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
 
-            viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder = new ViewHolder();
+                viewHolder.title = convertView.findViewById(R.id.title);
+                viewHolder.subTitle = convertView.findViewById(R.id.sub_title);
+                viewHolder.postImage = convertView.findViewById(R.id.img_product);
+                viewHolder.postDate = convertView.findViewById(R.id.post_date);
+                viewHolder.commentsCount = convertView.findViewById(R.id.comments_count);
+
+                convertView.setTag(viewHolder);
+            } else {
+
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
         }
 
         Post post = dataSource.get(position);
@@ -76,6 +98,20 @@ public class PostAdapter extends BaseAdapter {
                 .into(viewHolder.postImage);
 
         return convertView;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_BIG_ITEM;
+        } else {
+            return VIEW_NORMAL_ITEM;
+        }
     }
 
     public void showPosts(List<Post> posts) {
