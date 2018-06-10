@@ -32,7 +32,10 @@ public class PostsFragments extends Fragment {
 
     private static final int PROGRESS_CHILD = 1;
     private static final int LIST_CHILD = 0;
+    public static final String CATEGORY_ID_KEY = "CATEGORY_ID_KEY";
 
+
+    long categoryId;
     private DataProvider dataProvider;
     private PostAdapter postAdapter;
     private ViewAnimator viewAnimator;
@@ -42,9 +45,21 @@ public class PostsFragments extends Fragment {
 
     private Callback callback;
 
+    public static Fragment getNewInstance(long id) {
+        Fragment fragment = new PostsFragments();
+        Bundle bundle = new Bundle();
+        bundle.putLong(CATEGORY_ID_KEY, id);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            categoryId = getArguments().getLong(CATEGORY_ID_KEY);
+        }
         this.setHasOptionsMenu(true);
     }
 
@@ -71,10 +86,8 @@ public class PostsFragments extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Post post = (Post) parent.getAdapter().getItem(position);
                 callback.onClickPost(post);
-
             }
         });
         viewAnimator = rootView.findViewById(R.id.main_view_animator);
@@ -85,7 +98,11 @@ public class PostsFragments extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshPosts();
+                if (categoryId != 0L) {
+                    loadPostsForCollection(categoryId);
+                } else {
+                    refreshPosts();
+                }
             }
         });
 
@@ -96,7 +113,11 @@ public class PostsFragments extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         dataProvider = DataProvider.getInstance(getActivity().getApplication());
-        loadPosts();
+        if (categoryId != 0L) {
+            loadPostsForCollection(categoryId);
+        } else {
+            loadPosts();
+        }
     }
 
     @Override
@@ -126,7 +147,11 @@ public class PostsFragments extends Fragment {
 
             case R.id.refresh:
                 swipeRefreshLayout.setRefreshing(true);
-                refreshPosts();
+                if (categoryId != 0L) {
+                    loadPostsForCollection(categoryId);
+                } else {
+                    refreshPosts();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -156,6 +181,11 @@ public class PostsFragments extends Fragment {
         fetchPostsAsyncTask.execute();
     }
 
+    private void loadPostsForCollection(long categoryId) {
+        FetchPostsForCollectionAsyncTask fetchPostsForCollectionAsyncTask = new FetchPostsForCollectionAsyncTask();
+        fetchPostsForCollectionAsyncTask.execute(categoryId);
+    }
+
     private class FetchPostsAsyncTask extends AsyncTask<Void, Void, List<Post>> {
 
         @Override
@@ -168,6 +198,29 @@ public class PostsFragments extends Fragment {
         protected List<Post> doInBackground(Void... params) {
 
             return dataProvider.getPostsFromDatabase();
+        }
+
+        @Override
+        protected void onPostExecute(List<Post> posts) {
+            if (posts != null && !posts.isEmpty()) {
+                postAdapter.showPosts(posts);
+            }
+            swipeRefreshLayout.setRefreshing(false);
+            viewAnimator.setDisplayedChild(LIST_CHILD);
+        }
+    }
+
+    private class FetchPostsForCollectionAsyncTask extends AsyncTask<Long, Void, List<Post>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            viewAnimator.setDisplayedChild(PROGRESS_CHILD);
+        }
+
+        @Override
+        protected List<Post> doInBackground(Long... params) {
+            return dataProvider.getPostsFromWeb(params[0]);
         }
 
         @Override

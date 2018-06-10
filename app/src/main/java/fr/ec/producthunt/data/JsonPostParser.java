@@ -43,6 +43,17 @@ public class JsonPostParser {
         }
     }
 
+    public List<Post> collectionJsonToPosts(String json) {
+        try {
+            JSONObject collectionDetailResponse = new JSONObject(json);
+            JSONObject collection = collectionDetailResponse.getJSONObject("collection");
+            return jsonToPosts(collection.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
     private Post jsonToPost(JSONObject postJson) throws JSONException, ParseException {
         Post post = new Post();
         //"thumbnail": {

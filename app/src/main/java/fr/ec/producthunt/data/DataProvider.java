@@ -25,6 +25,8 @@ public class DataProvider {
             "https://api.producthunt.com/v1/posts?access_token=46a03e1c32ea881c8afb39e59aa17c936ff4205a8ed418f525294b2b45b56abb";
     public static final String COLLECTION_API_END_POINT =
             "https://api.producthunt.com/v1/collections?access_token=46a03e1c32ea881c8afb39e59aa17c936ff4205a8ed418f525294b2b45b56abb";
+    public static final String POSTS_FROM_COLLECTION_API_END_POINT =
+            "https://api.producthunt.com/v1/collections/%s?access_token=46a03e1c32ea881c8afb39e59aa17c936ff4205a8ed418f525294b2b45b56abb";
 
     private JsonPostParser jsonPostParser = new JsonPostParser();
     private JsonCollectionParser jsonCollectionParser = new JsonCollectionParser();
@@ -104,6 +106,12 @@ public class DataProvider {
 
     public List<Post> getPostsFromDatabase() {
         return postDao.retrievePosts();
+    }
+
+    public List<Post> getPostsFromWeb(long categoryId) {
+        return jsonPostParser.collectionJsonToPosts(
+                getThingsFromWeb(String.format(POSTS_FROM_COLLECTION_API_END_POINT, categoryId))
+        );
     }
 
     public List<Collection> getCollectionsFromDatabase() {

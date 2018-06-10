@@ -118,6 +118,9 @@ public class MainActivity extends AppCompatActivity implements PostsFragments.Ca
 
     @Override
     public void onClickCollection(Collection collection) {
-
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, PostsFragments.getNewInstance(collection.getId()))
+                .addToBackStack(null)
+                .commit();
     }
 }
