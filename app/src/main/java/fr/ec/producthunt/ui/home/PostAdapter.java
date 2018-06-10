@@ -13,74 +13,82 @@ import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import fr.ec.producthunt.R;
 import fr.ec.producthunt.data.model.Post;
 
 public class PostAdapter extends BaseAdapter {
 
-  private List<Post> dataSource = Collections.emptyList();
+    private List<Post> dataSource = Collections.emptyList();
 
-  public PostAdapter() {
-  }
-
-  @Override public int getCount() {
-    return dataSource.size();
-  }
-
-  @Override public Object getItem(int position) {
-    return dataSource.get(position);
-  }
-
-  @Override public long getItemId(int position) {
-    return position;
-  }
-
-  @Override public View getView(int position, View convertView, ViewGroup parent) {
-
-    ViewHolder viewHolder;
-
-    if (convertView == null) {
-      convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-
-      viewHolder = new ViewHolder();
-      viewHolder.title = convertView.findViewById(R.id.title);
-      viewHolder.subTitle = convertView.findViewById(R.id.sub_title);
-      viewHolder.postImage = convertView.findViewById(R.id.img_product);
-      viewHolder.postDate = convertView.findViewById(R.id.post_date);
-
-      convertView.setTag(viewHolder);
-    } else {
-
-      viewHolder = (ViewHolder) convertView.getTag();
+    public PostAdapter() {
     }
 
-    Post post = dataSource.get(position);
-    viewHolder.title.setText(post.getTitle());
-    viewHolder.subTitle.setText(post.getSubTitle());
-    Date postDate = new Date(post.getPostDate());
-    viewHolder.postDate.setText(DateFormat.getDateTimeInstance().format(postDate));
+    @Override
+    public int getCount() {
+        return dataSource.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return dataSource.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        ViewHolder viewHolder;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+
+            viewHolder = new ViewHolder();
+            viewHolder.title = convertView.findViewById(R.id.title);
+            viewHolder.subTitle = convertView.findViewById(R.id.sub_title);
+            viewHolder.postImage = convertView.findViewById(R.id.img_product);
+            viewHolder.postDate = convertView.findViewById(R.id.post_date);
+            viewHolder.commentsCount = convertView.findViewById(R.id.comments_count);
+
+            convertView.setTag(viewHolder);
+        } else {
+
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        Post post = dataSource.get(position);
+        viewHolder.title.setText(post.getTitle());
+        viewHolder.subTitle.setText(post.getSubTitle());
+        Date postDate = new Date(post.getPostDate());
+        viewHolder.postDate.setText(DateFormat.getDateTimeInstance().format(postDate));
+        viewHolder.commentsCount.setText(String.format(Locale.US, "%d comments", post.getCommentsCount()));
 
 
-    Picasso.with(parent.getContext())
-        .load(post.getImageUrl())
-        .centerCrop()
-        .fit()
-        .into(viewHolder.postImage);
+        Picasso.with(parent.getContext())
+                .load(post.getImageUrl())
+                .centerCrop()
+                .fit()
+                .into(viewHolder.postImage);
 
-    return convertView;
-  }
+        return convertView;
+    }
 
-  public void showPosts(List<Post> posts) {
-    dataSource = posts;
+    public void showPosts(List<Post> posts) {
+        dataSource = posts;
 
-    notifyDataSetChanged();
-  }
+        notifyDataSetChanged();
+    }
 
-  private static class ViewHolder {
-    TextView title;
-    TextView subTitle;
-    ImageView postImage;
-    TextView postDate;
-  }
+    private static class ViewHolder {
+        TextView title;
+        TextView subTitle;
+        ImageView postImage;
+        TextView postDate;
+        TextView commentsCount;
+    }
 }

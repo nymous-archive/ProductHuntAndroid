@@ -36,12 +36,13 @@ public class PostDao {
 
         Post post = new Post();
 
-        post.setId(cursor.getInt(0));
-        post.setTitle(cursor.getString(1));
-        post.setSubTitle(cursor.getString(2));
-        post.setImageUrl(cursor.getString(3));
-        post.setPostUrl(cursor.getString(4));
-        post.setPostDate(cursor.getLong(5));
+        post.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.ID_COLUMN)));
+        post.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.TITLE_COLUMN)));
+        post.setSubTitle(cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.SUBTITLE_COLUMN)));
+        post.setImageUrl(cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.IMAGE_URL_COLUMN)));
+        post.setPostUrl(cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.POST_URL_COLUMN)));
+        post.setPostDate(cursor.getLong(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.POST_DATE_COLUMN)));
+        post.setCommentsCount(cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseContract.PostTable.COMMENTS_COUNT_COLUMN)));
 
         posts.add(post);
 

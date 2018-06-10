@@ -9,6 +9,7 @@ public class Post {
   private String imageUrl;
   private String postUrl;
   private long postDate;
+  private int commentsCount;
 
   private long id;
 
@@ -60,6 +61,13 @@ public class Post {
     this.postDate = postDate;
   }
 
+  public int getCommentsCount() {
+    return commentsCount;
+  }
+
+  public void setCommentsCount(int commentsCount) {
+    this.commentsCount = commentsCount;
+  }
 
   public ContentValues toContentValues() {
 
@@ -70,6 +78,7 @@ public class Post {
     contentValues.put(DataBaseContract.PostTable.IMAGE_URL_COLUMN, imageUrl);
     contentValues.put(DataBaseContract.PostTable.POST_URL_COLUMN, postUrl);
     contentValues.put(DataBaseContract.PostTable.POST_DATE_COLUMN, postDate);
+    contentValues.put(DataBaseContract.PostTable.COMMENTS_COUNT_COLUMN, commentsCount);
     return contentValues;
   }
 

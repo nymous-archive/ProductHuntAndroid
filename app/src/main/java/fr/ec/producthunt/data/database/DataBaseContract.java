@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 public final class DataBaseContract {
 
     public static final String DATABASE_NAME = "database";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     public static final String TEXT_TYPE = " TEXT";
     public static final String COMM_SPA = ",";
@@ -27,6 +27,7 @@ public final class DataBaseContract {
         public static final String IMAGE_URL_COLUMN = "imageurl";
         public static final String POST_URL_COLUMN = "postUrl";
         public static final String POST_DATE_COLUMN = "date";
+        public static final String COMMENTS_COUNT_COLUMN = "comments_count";
 
 
         public static final String SQL_CREATE_POST_TABLE =
@@ -36,7 +37,8 @@ public final class DataBaseContract {
                         PostTable.SUBTITLE_COLUMN + TEXT_TYPE + COMM_SPA +
                         PostTable.IMAGE_URL_COLUMN + TEXT_TYPE + COMM_SPA +
                         PostTable.POST_URL_COLUMN + TEXT_TYPE + COMM_SPA +
-                        PostTable.POST_DATE_COLUMN + INTEGER_TYPE +
+                        PostTable.POST_DATE_COLUMN + INTEGER_TYPE + COMM_SPA +
+                        PostTable.COMMENTS_COUNT_COLUMN + INTEGER_TYPE +
                         ")";
 
         public static final String SQL_DROP_POST_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -48,6 +50,7 @@ public final class DataBaseContract {
                 IMAGE_URL_COLUMN,
                 POST_URL_COLUMN,
                 POST_DATE_COLUMN,
+                COMMENTS_COUNT_COLUMN,
         };
     }
 
